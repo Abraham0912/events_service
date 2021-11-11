@@ -5,6 +5,6 @@ Rails.application.routes.draw do
                  registrations: 'users/registrations'
              }
   get '/member-data', to: 'members#show'
-  resources :wikis
+  resources :palaces
   get 'users', to: 'users#index'
 end

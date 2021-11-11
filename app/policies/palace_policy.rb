@@ -1,4 +1,4 @@
-class WikiPolicy < ApplicationPolicy
+class PalacePolicy < ApplicationPolicy
     
     def index?
         true
@@ -20,7 +20,3 @@ class WikiPolicy < ApplicationPolicy
         user.role == 'admin'
     end
 end
-
-# def destroy?
-#     user.role == 'admin'
-# end
