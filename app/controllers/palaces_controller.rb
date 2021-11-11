@@ -1,5 +1,5 @@
 class PalacesController < ApplicationController
-    # before_action :authenticate_user!
+    before_action :authenticate_user!
     before_action :set_palace, only: [:show, :update, :destroy]
 
     def index
@@ -9,12 +9,10 @@ class PalacesController < ApplicationController
       render json: @palace
     end
   
-    # GET /articles/1
     def show
       render json: @palace
     end
   
-    # POST /articles
     def create
       @palace = Palace.new(palace_params)
       authorize @palace
@@ -24,8 +22,7 @@ class PalacesController < ApplicationController
         render json: @palace.errors, status: :unprocessable_entity
       end
     end
-  
-    # PATCH/PUT /articles/1
+
     def update
       authorize @palace
       if @palace.update(palace_params)
@@ -35,7 +32,6 @@ class PalacesController < ApplicationController
       end
     end
   
-    # DELETE /articles/1
     def destroy
       authorize @palace
       if @palace.destroy
@@ -46,13 +42,11 @@ class PalacesController < ApplicationController
     end
   
     private
-      # Use callbacks to share common setup or constraints between actions.
       def set_palace
         @palace = Palace.find(params[:id])
         authorize @palace
       end
   
-      # Only allow a list of trusted parameters through.
       def palace_params
         params.require(:palace).permit(:name, :capacity, :location)
       end
