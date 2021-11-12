@@ -4,6 +4,7 @@ class User < ApplicationRecord
   #Establecer valor de rol por defecto
   has_many :tickets
   has_many :events, through: :tickets
+  has_many :notifications
 
   after_initialize do
     if self.new_record?

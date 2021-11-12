@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   delete 'users/:id', to: 'users#show'
   resources :events
   resources :tickets
+  resources :notifications
 end

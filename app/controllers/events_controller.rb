@@ -6,7 +6,7 @@ class EventsController < ApplicationController
       @event = Event.all
       authorize @event
   
-      render json: @event
+      render json: @event.order(:id)
     end
   
     def show
@@ -26,6 +26,13 @@ class EventsController < ApplicationController
     def update
       authorize @event
       if @event.update(event_params)
+        if(@event.cancel == true)
+          p "NOOOOOOO, SE CANCLEO EL EVENTO !!! RAYOOS"
+          n = Notification.new(name:"Notificacion",message:"Evento cancelado :C",viewed: false,user_id: current_user.id)
+          n.save
+        else
+          p "Siiiiiii, Todo-bien ALL-GOOD"
+        end
         render json: @event
       else
         render json: @event.errors, status: :unprocessable_entity
