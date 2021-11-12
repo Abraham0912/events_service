@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type_event: MyString
+  description: MyString
+  cancel: false
+  palace: one
+
+two:
+  name: MyString
+  type_event: MyString
+  description: MyString
+  cancel: false
+  palace: two
