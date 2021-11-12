@@ -35,7 +35,7 @@ class PalacesController < ApplicationController
     def destroy
       authorize @palace
       if @palace.destroy
-        render json:{message:"Se borro chido !!"}
+        render json:{message:"Registro borrado exitosamente !!"}
       else
         render json: @palace.errors, status: :unprocessable_entity
       end

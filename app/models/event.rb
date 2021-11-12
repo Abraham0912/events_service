@@ -7,4 +7,6 @@ class Event < ApplicationRecord
   #   end
   # end
   belongs_to :palace
+  has_many :tickets
+  has_many :users, through: :tickets
 end
