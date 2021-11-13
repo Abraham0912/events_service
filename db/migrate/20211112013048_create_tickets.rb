@@ -1,6 +1,7 @@
 class CreateTickets < ActiveRecord::Migration[6.1]
   def change
     create_table :tickets do |t|
+      t.index [:event_id, :user_id], unique: true
       t.string :description
       t.float :cost,:default => 0.0
       t.references :event, null: false, foreign_key: true
