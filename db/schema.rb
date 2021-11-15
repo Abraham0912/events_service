@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_174604) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id", "user_id"], name: "index_tickets_on_event_id_and_user_id", unique: true
     t.index ["event_id"], name: "index_tickets_on_event_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end

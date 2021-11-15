@@ -9,7 +9,7 @@ class UserPolicy < ApplicationPolicy
     end
     
     def create?
-        user.role == 'admin'
+        user.role == 'admin' || user.role == 'organizer'
     end
     
     def update?
@@ -18,5 +18,15 @@ class UserPolicy < ApplicationPolicy
     
     def destroy?
         user.role == 'admin'
+    end
+
+    class Scope < Scope
+        def resolve
+          if user.admin?
+            scope.all
+          else
+            scope.where(role: :standard)
+          end
+        end
     end
 end

@@ -15,11 +15,20 @@ class TicketsController < ApplicationController
     def create
         @ticket = Ticket.new(ticket_params)
         authorize @ticket
-        if(@ticket.save)
-            render json: @ticket, status: :created
+        if Event.find(params['event_id']).tickets.size < Event.find(params['event_id']).palace.capacity.to_i
+          if(params['cost'] == 0)
+            if(@ticket.save)
+              render json: @ticket, status: :created
+            else
+                render json: @ticket.errors, status: :unprocessable_entity
+            end
+          else
+            render json: {Error: "El costo del ticket no puede ser diferente de cero"}
+          end
         else
-            render json: @ticket.errors, status: :unprocessable_entity
+          render json: {Error: "El cupo máximo para el evento es #{Event.find(params['event_id']).palace.capacity}"}
         end
+        
     end
 
     def update

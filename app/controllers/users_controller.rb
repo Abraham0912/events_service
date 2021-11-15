@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :set_user, only: [:show, :update, :destroy]
-# @users = current_user
     def index
-        @user = User.all
+        @user = policy_scope(User)
+        # @user = User.all
         authorize @user
-        render json: @user
+        render json: @user.order(:id)
       end
 
     def show
