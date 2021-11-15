@@ -6,7 +6,7 @@ class PalacesController < ApplicationController
       @palace = Palace.all
       authorize @palace
   
-      render json: @palace
+      render json: @palace.order(:id)
     end
   
     def show

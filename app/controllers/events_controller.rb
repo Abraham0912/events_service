@@ -6,7 +6,7 @@ class EventsController < ApplicationController
       @event = Event.all
       authorize @event
   
-      render json: @event.order(:id)
+      render json: @event.order(:id), include: set_models
     end
   
     def show
@@ -28,8 +28,16 @@ class EventsController < ApplicationController
       if @event.update(event_params)
         if(@event.cancel == true)
           p "NOOOOOOO, SE CANCLEO EL EVENTO !!! RAYOOS"
-          n = Notification.new(name:"Notificacion",message:"Evento cancelado :C",viewed: false,user_id: current_user.id)
-          n.save
+          Event.find(@event.id).users.map{|a| 
+            n = Notification.new(
+              name:"Evento cancelado",
+              message:"El evento #{@event.name} se cancelo por el usuario #{current_user.email}.",
+              # message:"Evento #{@event.name} CU: #{current_user.email}.",
+              viewed: false,
+              user_id: a.id)
+            p n
+            n.save
+        }
         else
           p "Siiiiiii, Todo-bien ALL-GOOD"
         end
@@ -56,5 +64,9 @@ class EventsController < ApplicationController
   
       def event_params
         params.require(:event).permit(:name, :type_event, :description, :cancel,:palace_id)
+      end
+
+      def set_models
+        @models = [:palace]
       end
 end
